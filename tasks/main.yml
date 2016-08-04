@@ -1,0 +1,12 @@
+---
+- include: from-ppa.yml
+  when: from_source == false
+
+- include: from-source.yml
+  when: from_source == true
+
+- name: add .gemrc
+  copy: src=gemrc dest=~/.gemrc owner={{ ansible_ssh_user }} mode=0750
+
+- name: install bundler
+  gem: name=bundler state=latest

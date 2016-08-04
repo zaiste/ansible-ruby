@@ -1,0 +1,8 @@
+---
+- name: add PPA
+  apt_repository: repo='ppa:brightbox/ruby-ng'
+- name: install ruby and ruby-dev
+  apt: pkg={{ item }} state=latest update_cache=yes
+  with_items:
+    - "ruby{{ ruby_version }}"
+    - "ruby{{ ruby_version }}-dev"

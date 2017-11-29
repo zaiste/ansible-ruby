@@ -14,23 +14,32 @@
 - name: fetch Ruby source code
   get_url:
     url: "{{ ruby_source_url }}"
-    dest: "~/ruby-{{ ruby_version }}.tar.gz"
+    dest: "/usr/src/ruby-{{ ruby_version }}.tar.gz"
 
 - name: untar Ruby source code
   unarchive:
-    src: "~/ruby-{{ ruby_version }}.tar.gz"
-    dest: "~/"
+    src: "/usr/src/ruby-{{ ruby_version }}.tar.gz"
+    dest: "/usr/src/ruby-{{ ruby_version }}"
+    creates: /usr/src/ruby-{{ ruby_version }}
     copy: no
 
-- name: build Ruby
-  command: >
-    {{ item }}
-    chdir=~/ruby-{{ ruby_version }}
-    creates=/usr/local/bin/ruby
-  with_items:
-    - ./configure --enable-shared
-    - make
-    - sudo make install
+- name: configure
+  command: ./configure --enable-shared
+  args:
+    chdir: /usr/src/ruby-{{ ruby_version }}
+    creates: Makefile
+
+- name: build 
+  command: make
+  args:
+    chdir: /usr/src/ruby-{{ ruby_version }}
+    creates: ruby
+
+- name: install
+  command: make install
+  args:
+    chdir: /usr/src/ruby-{{ ruby_version }}
+    creates: /usr/local/bin/ruby
 
 - name: create symlinks for Ruby and its tools
   file:
@@ -50,4 +59,4 @@
   copy: src=gemrc dest=~/.gemrc owner={{ ansible_ssh_user }} mode=0750
 
 - name: install bundler
-  gem: name=bundler state=latest
+  gem: name=bundler state=latest user_install=no

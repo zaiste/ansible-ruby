@@ -14,7 +14,7 @@
 - name: fetch Ruby source code
   get_url:
     url: "{{ ruby_source_url }}"
-    dest: "ruby-{{ ruby_version }}.tar.gz"
+    dest: "~/ruby-{{ ruby_version }}.tar.gz"
 
 - name: untar Ruby source code
   unarchive:

@@ -1,7 +1,7 @@
 ansible-ruby
 =========
 
-An Ansible role that installs Ruby on Ubuntu Xenial from source or through PPA.
+An Ansible role that installs Ruby on Ubuntu from source.
 
 Requirements
 ------------
@@ -11,8 +11,7 @@ None.
 Role Variables
 --------------
 
-* `ruby_version` defaults to `2.3`
-* `from_source` defaults to `false`
+* `ruby_version` defaults to `2.4`
 
 Dependencies
 ------------
@@ -39,4 +38,4 @@ MIT / BSD
 Author Information
 ------------------
 
-[Zaiste](http://zaiste.net) 2014 - 2016
+[Zaiste](http://zaiste.net) 2017 

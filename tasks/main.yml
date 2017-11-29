@@ -19,7 +19,7 @@
 - name: untar Ruby source code
   unarchive:
     src: "/usr/src/ruby-{{ ruby_version }}.tar.gz"
-    dest: "/usr/src/ruby-{{ ruby_version }}"
+    dest: "/usr/src"
     creates: /usr/src/ruby-{{ ruby_version }}
     copy: no
 
